@@ -1,9 +1,8 @@
 import React from "react";
 
-function Button() {
-    return (
-        <div></div>
-    )
+
+class Button extends React.Component{
+
 }
 
 export default Button;
