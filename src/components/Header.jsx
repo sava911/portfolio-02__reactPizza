@@ -1,4 +1,4 @@
-import LogoSvg from "./assets/img/pizza-logo.svg";
+import LogoSvg from "../assets/img/pizza-logo.svg";
 import React from "react";
 import Button from "./Button";
 function Header() {

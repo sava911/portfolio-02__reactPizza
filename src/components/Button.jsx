@@ -11,6 +11,7 @@ const Button = ({onClick, className, outline, children}) => {
         })}>
             {children}
         </button>
+
     );
 };
 
