@@ -50,7 +50,7 @@ function Categories({items, onClick}) {
         <div>
             <div className="categories">
                 <ul>
-                    <li>Все</li>
+                    <li className={activeItem === null ? "active" : ""} onClick={() => onSelectItem(null)}>Все</li>
                     {
                         items.map((name, index) => (
                             <li
