@@ -1,24 +1,34 @@
 import React from 'react';
 
-function SortPopup(props) {
+function SortPopup({items}) {
 
     const [visiblePopup, setVisiblePopup] = React.useState(false)
+    const [activeItem, setActiveItem] = React.useState(0)
     const sortRef = React.useRef()
+const activeLabel = items[activeItem]
+
 
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup)
     }
 
     React.useEffect(() => {
-        document.body.addEventListener('click', handleOutsideClick  )
+        document.body.addEventListener('click', handleOutsideClick)
     }, [])
 
-    const handleOutsideClick =(e)=>{
-        console.log('clicked')
+    const handleOutsideClick = (e) => {
+        if (!e.path.includes(sortRef.current)) {
+
+            setVisiblePopup(false)
+        }
+    }
+    const onSelectItem = (index) => {
+        setActiveItem(index)
+        setVisiblePopup(false)
     }
 
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg
                     width="10"
@@ -33,13 +43,19 @@ function SortPopup(props) {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={toggleVisiblePopup}>популярности</span>
+                <span onClick={toggleVisiblePopup}>{activeLabel}</span>
             </div>
             {visiblePopup && (<div className="sort__popup">
                 <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
+                    {
+                        items.map((name, index) => (
+                            <li onClick={() => onSelectItem(index)}
+                                className={activeItem === index ? "active" : ""}
+                                key={`${name}_${index}`}>
+                                {name}
+                            </li>
+                        ))
+                    }
                 </ul>
             </div>)}
         </div>
